@@ -1,0 +1,4 @@
+deb http://mirrors.aliyun.com/debian/ jessie main
+deb http://security.debian.org/ jessie/updates main
+deb http://mirrors.aliyun.com/debian/ jessie-updates main
+deb http://mirrors.aliyun.com/debian/ jessie-backports main

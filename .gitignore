@@ -1,2 +1,4 @@
 config.sh
 tmp
+ssh-keys/*
+!ssh-keys/.place-holder
