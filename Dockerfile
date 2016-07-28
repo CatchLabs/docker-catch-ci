@@ -3,7 +3,7 @@
 FROM debian:jessie
 
 RUN dpkg --add-architecture i386
-RUN apt update && apt upgrade
+RUN apt update && apt upgrade -y
 
 # Utils
 RUN apt -y install curl wget
