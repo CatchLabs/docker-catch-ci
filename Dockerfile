@@ -43,7 +43,7 @@ RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
 RUN apt install -y build-essential fakeroot
 
-RUN useradd -m -d /home/builder -s /bin/sh builder &&\
+RUN useradd -m -d /home/builder -s /bin/bash builder &&\
     echo "builder:builder" | chpasswd
 
 RUN mkdir -p /root/.ssh && mkdir -p /home/builder/.ssh
