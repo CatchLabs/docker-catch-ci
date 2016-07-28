@@ -10,7 +10,8 @@ RUN apt -y install curl wget
 RUN apt -y install git
 
 ENV CATCH_ANDROID_LIBVER 20160728-17191469697558
-RUN . dev/config.sh; mkdir -p tmp && wget -O tmp/latest-android-sdk.tgz http://$WEB_HOST$WEB_PATH/ci-android-sdk-linux-${CATCH_ANDROID_LIBVER}.tar.gz
+ADD dev/config.sh
+RUN . config.sh; mkdir -p tmp && wget -O tmp/latest-android-sdk.tgz http://$WEB_HOST$WEB_PATH/ci-android-sdk-linux-${CATCH_ANDROID_LIBVER}.tar.gz
 ADD tmp/latest-android-sdk.tgz /opt
 ENV ANDROID_HOME /opt/android-sdk-linux
 
