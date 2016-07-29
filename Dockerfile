@@ -48,7 +48,7 @@ RUN useradd -m -d /home/builder -s /bin/bash builder &&\
 RUN mkdir -p /root/.ssh && mkdir -p /home/builder/.ssh
 COPY ssh-keys/* /root/.ssh/
 COPY ssh-keys/* /home/builder/.ssh/
-RUN chown -R builder: /home/builder/.ssh
+RUN chown -R builder: /home/builder/.ssh && chmod 600 /home/builder/.ssh/id_rsa || true
 
 EXPOSE 22
 
