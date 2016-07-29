@@ -35,7 +35,7 @@ COPY ssh-keys/* /home/builder/.ssh/
 RUN chown -R builder: /home/builder/.ssh && chmod 600 /home/builder/.ssh/id_rsa || true
 
 
-ENV CATCH_ANDROID_LIBVER 20160729-173334
+ENV CATCH_ANDROID_LIBVER 20160729-181506
 COPY dev/config.sh config.sh
 RUN . ./config.sh; mkdir -p /tmp && wget -O /tmp/latest-android-sdk.tgz http://$WEB_HOST$WEB_PATH/ci-android-sdk-linux-${CATCH_ANDROID_LIBVER}.tar.gz && cd /opt && tar xzf /tmp/latest-android-sdk.tgz && rm /tmp/latest-android-sdk.tgz && wget -O /tmp/dot-android.tgz http://$WEB_HOST$WEB_PATH/dot-android-${CATCH_ANDROID_LIBVER}.tar.gz && cd /home/builder && tar xvf /tmp/dot-android.tgz && chown -R builder: /home/builder/.android && rm -f /tmp/dot-android.tgz
 ENV ANDROID_HOME /opt/android-sdk-linux
