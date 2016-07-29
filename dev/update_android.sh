@@ -13,7 +13,8 @@ tar czf $FILENAME android-sdk-linux/
 scp $FILENAME root@${WEB_HOST}:${WEB_FSPATH}
 DOTFILENAME=dot-android-${CI_ANDROID_LIBVER}.tar.gz
 rm -rf dot-android-*.tar.gz
-tar czf $DOTFILENAME ~/.android
+cd ~ && tar czf /tmp/$DOTFILENAME .android
+cd /tmp
 scp $DOTFILENAME root@${WEB_HOST}:${WEB_FSPATH}
 sed -i "s/ENV CATCH_ANDROID_LIBVER .\+/ENV CATCH_ANDROID_LIBVER ${CI_ANDROID_LIBVER}/" ../Dockerfile
 
