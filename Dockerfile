@@ -25,6 +25,16 @@ RUN apt -y install git
 RUN apt -y install openssh-server
 RUN apt install -y build-essential fakeroot
 
+
+RUN useradd -m -d /home/builder -s /bin/bash builder && \
+    echo "builder:builder" | chpasswd
+
+RUN mkdir -p /root/.ssh && mkdir -p /home/builder/.ssh
+COPY ssh-keys/* /root/.ssh/
+COPY ssh-keys/* /home/builder/.ssh/
+RUN chown -R builder: /home/builder/.ssh && chmod 600 /home/builder/.ssh/id_rsa || true
+
+
 ENV CATCH_ANDROID_LIBVER 20160729-173334
 COPY dev/config.sh config.sh
 RUN . ./config.sh; mkdir -p /tmp && wget -O /tmp/latest-android-sdk.tgz http://$WEB_HOST$WEB_PATH/ci-android-sdk-linux-${CATCH_ANDROID_LIBVER}.tar.gz && cd /opt && tar xzf /tmp/latest-android-sdk.tgz && rm /tmp/latest-android-sdk.tgz && wget -O /tmp/dot-android.tgz http://$WEB_HOST$WEB_PATH/dot-android-${CATCH_ANDROID_LIBVER}.tar.gz && cd /home/builder && tar xvf /tmp/dot-android.tgz && chown -R builder: /home/builder/.android && rm -f /tmp/dot-android.tgz
@@ -41,14 +51,6 @@ RUN apt install -y nodejs
 RUN mkdir -p /srv/android-build-home/any && chmod 777 /srv/android-build-home/any
 RUN mkdir -p /var/run/sshd
 
-
-RUN useradd -m -d /home/builder -s /bin/bash builder &&\
-    echo "builder:builder" | chpasswd
-
-RUN mkdir -p /root/.ssh && mkdir -p /home/builder/.ssh
-COPY ssh-keys/* /root/.ssh/
-COPY ssh-keys/* /home/builder/.ssh/
-RUN chown -R builder: /home/builder/.ssh && chmod 600 /home/builder/.ssh/id_rsa || true
 
 EXPOSE 22
 
