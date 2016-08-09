@@ -51,6 +51,11 @@ RUN apt install -y nodejs
 RUN mkdir -p /srv/android-build-home/any && chmod 777 /srv/android-build-home/any
 RUN mkdir -p /var/run/sshd
 
+ENV PROXYCHAINS_VERHASH 8870140ff0d730c5c71c2170518c6c7957c4d68c
+RUN cd /tmp && git clone https://github.com/rofl0r/proxychains-ng && cd proxychains-ng && git checkout $PROXYCHAINS_VERHASH && ./configure --prefix=/usr --sysconfdir=/etc && make -j 4 && make install && ln -s /usr/bin/proxychains4 /usr/bin/proxychains
+COPY misc/proxychains.conf /etc/proxychains.conf
+RUN . ./config.sh && echo $PROXY >> /etc/proxychains.conf
+
 
 EXPOSE 22
 
